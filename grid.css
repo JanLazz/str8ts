@@ -1,0 +1,35 @@
+.str8ts-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 40px);
+    grid-gap: 1px;
+    max-width: 210mm; /* DIN A4 Breite */
+    margin: 0 auto; /* Zentriert auf der Seite */
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .cell {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  @media print {
+    /* Verstecke die Seitenumrandung */
+    body {
+      margin: 0;
+    }
+    
+    .str8ts-grid {
+      /* Fülle die gesamte Seitenbreite aus */
+      width: 100%;
+    }
+  }
+  
