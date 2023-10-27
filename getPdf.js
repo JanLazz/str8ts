@@ -1,3 +1,3 @@
-import generatePDF from "./pdfCreation.mjs";
+import generatePDF from "./str8tsPdf.js";
 
 generatePDF('easy');
