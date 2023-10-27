@@ -34,7 +34,7 @@ const generatePDF = (difficulty) => {
           doc.text(grid[i][j].toString(), xPos + cellPadding, yPos + cellSize - cellPadding);
         }
       } else {
-        if (Math.random() < 0.2) {
+        if (Math.random() < 0.95) {
           const randomNumber = Math.floor(Math.random() * 8) + 1;
           doc.setFillColor(0);
           doc.rect(xPos, yPos, cellSize, cellSize, 'F');
