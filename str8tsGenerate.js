@@ -213,31 +213,9 @@ const fillBlockedFields = (grid) => {
 
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
-      if (grid[i][j] < 0 && Math.random() < 0.01) { // Nur in manchen schwarzen Feldern
+      if (grid[i][j] < 0 && Math.random() < 0.002) { // Hier die Wahrscheinlichkeit ändern
         const blockedNumber = -grid[i][j];
-
-        // Überprüfe die Zeile
-        let count = 0;
-        for (let k = 0; k < 9; k++) {
-          if (grid[i][k] === 0 && k !== j) {
-            count++;
-          }
-        }
-        if (count === 1) {
-          grid[i][j] = blockedNumber;
-          continue;
-        }
-
-        // Überprüfe die Spalte
-        count = 0;
-        for (let k = 0; k < 9; k++) {
-          if (grid[k][j] === 0 && k !== i) {
-            count++;
-          }
-        }
-        if (count === 1) {
-          grid[i][j] = blockedNumber;
-        }
+        grid[i][j] = blockedNumber;
       }
     }
   }
@@ -245,15 +223,16 @@ const fillBlockedFields = (grid) => {
   return grid;
 };
 
+
 const calculateBlackToWhiteRatio = (str8ts) => {
   console.log("Enter calculateBtoWRatio()");
 
   const blackCount = str8ts.flat().filter(cell => cell < 0).length;
   const whiteCount = str8ts.flat().filter(cell => cell === 0).length;
 
-  console.log("blackCount / whiteCount = ", blackCount / whiteCount);
+  console.log("blackCount / whiteCount + 1 = ", blackCount / (whiteCount + 1));
 
-  return blackCount / whiteCount;
+  return blackCount / (whiteCount + 1);
 };
 
 const removeNumbers = (grid, difficulty, numToRemove) => {
@@ -277,33 +256,34 @@ const removeNumbers = (grid, difficulty, numToRemove) => {
   return { grid, removedNumbers };
 };
 const removeBlackNumbers = (grid, difficulty) => {
-  console.log("Enter removeBlackNumbers()");
+  console.log("Enter removeBlackNumbers() with grid & difficulty = ", grid, difficulty);
   
   let numToRemove = 0;
   switch (difficulty) {
     case 'easy':
-      numToRemove = 25;
+      numToRemove = 5;
       break;
     case 'medium':
-      numToRemove = 30;
+      numToRemove = 7;
       break;
     case 'hard':
-      numToRemove = 35;
+      numToRemove = 8;
       break;
     case 'extreme':
-      numToRemove = 40;
+      numToRemove = 9;
       break;
     case 'melina':
-      numToRemove = 45;
+      numToRemove = 9;
       break;
     default:
       numToRemove = 30;
   }
 
   let removedCount = 0;
-  while (removedCount < numToRemove) {
+  for (let i = 0; (removedCount < numToRemove && i < grid.length); i++) {
     const row = Math.floor(Math.random() * 9);
     const col = Math.floor(Math.random() * 9);
+    console.log("grid[row][col] = ", grid[row][col]);
     if (grid[row][col] < 0) { // Überprüfe, ob das Feld schwarz ist
       grid[row][col] = 0;
       removedCount++;
